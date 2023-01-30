@@ -1,0 +1,48 @@
+entity Product {
+	name String required,
+    type Type required,
+    isActive Boolean required
+}
+
+entity Bank {
+	name String required 
+}
+
+entity Entry{
+    amount Float required min(0),
+    entryDate Instant required
+}
+
+entity MonthYear {
+	month Integer required min(1) max(12),
+    year Integer required min(2000),
+}
+
+enum Type {
+    BANK_ACCOUNT, PENSION_SCHEME, INVESTMENT_FOUND, STOCKS
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+    Product to Entry{product}
+    MonthYear to Entry{monthYear}
+    Bank to Product{bank}
+}
+
+relationship ManyToOne {
+	Bank{user} to User
+    Product{user} to User
+    Entry{user} to User
+    MonthYear{user} to User
+    
+}
+
+// Set pagination options
+paginate MonthYear, Entry with infinite-scroll
+paginate Product, Bank with pagination
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

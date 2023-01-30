@@ -1,0 +1,1 @@
+org.springframework.test.context.ContextCustomizerFactory = es.jferna57.myfinances.config.TestContainersSpringContextCustomizerFactory

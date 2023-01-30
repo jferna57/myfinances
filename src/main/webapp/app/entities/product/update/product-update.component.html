@@ -1,0 +1,87 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading" jhiTranslate="myfinancesApp.product.home.createOrEditLabel">
+        Crear o editar Product
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.product.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.product.type" for="field_type">Type</label>
+          <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
+            <option [ngValue]="null">{{ 'myfinancesApp.Type.null' | translate }}</option>
+            <option *ngFor="let type of typeValues" [value]="type">{{ 'myfinancesApp.Type.' + type | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.product.isActive" for="field_isActive">Is Active</label>
+          <input type="checkbox" class="form-check" name="isActive" id="field_isActive" data-cy="isActive" formControlName="isActive" />
+          <div *ngIf="editForm.get('isActive')!.invalid && (editForm.get('isActive')!.dirty || editForm.get('isActive')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('isActive')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.product.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.product.bank" for="field_bank">Bank</label>
+          <select class="form-control" id="field_bank" data-cy="bank" name="bank" formControlName="bank" [compareWith]="compareBank">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="bankOption" *ngFor="let bankOption of banksSharedCollection">{{ bankOption.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

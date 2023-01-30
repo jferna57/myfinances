@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-entry-heading" data-cy="EntryCreateUpdateHeading" jhiTranslate="myfinancesApp.entry.home.createOrEditLabel">
+        Crear o editar Entry
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.entry.amount" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          <div *ngIf="editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('amount')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('amount')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              Este campo debe ser mayor que 0.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('amount')?.errors?.number" jhiTranslate="entity.validation.number">
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.entry.entryDate" for="field_entryDate">Entry Date</label>
+          <div class="d-flex">
+            <input
+              id="field_entryDate"
+              data-cy="entryDate"
+              type="datetime-local"
+              class="form-control"
+              name="entryDate"
+              formControlName="entryDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('entryDate')!.invalid && (editForm.get('entryDate')!.dirty || editForm.get('entryDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('entryDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('entryDate')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+            >
+              Este campo debe ser una fecha y hora.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.entry.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.entry.product" for="field_product">Product</label>
+          <select
+            class="form-control"
+            id="field_product"
+            data-cy="product"
+            name="product"
+            formControlName="product"
+            [compareWith]="compareProduct"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.name }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myfinancesApp.entry.monthYear" for="field_monthYear">Month Year</label>
+          <select
+            class="form-control"
+            id="field_monthYear"
+            data-cy="monthYear"
+            name="monthYear"
+            formControlName="monthYear"
+            [compareWith]="compareMonthYear"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="monthYearOption" *ngFor="let monthYearOption of monthYearsSharedCollection">
+              {{ monthYearOption.month }}-{{ monthYearOption.year }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

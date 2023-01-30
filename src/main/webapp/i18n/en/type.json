@@ -1,0 +1,11 @@
+{
+  "myfinancesApp": {
+    "Type": {
+      "null": "",
+      "BANK_ACCOUNT": "BANK_ACCOUNT",
+      "PENSION_SCHEME": "PENSION_SCHEME",
+      "INVESTMENT_FOUND": "INVESTMENT_FOUND",
+      "STOCKS": "STOCKS"
+    }
+  }
+}

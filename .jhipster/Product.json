@@ -1,0 +1,50 @@
+{
+  "applications": "*",
+  "changelogDate": "20230129101044",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "product",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "Type",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BANK_ACCOUNT,PENSION_SCHEME,INVESTMENT_FOUND,STOCKS"
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Product",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "entry",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "entry",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "bank",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "bank",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

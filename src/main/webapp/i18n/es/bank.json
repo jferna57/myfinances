@@ -1,0 +1,26 @@
+{
+  "myfinancesApp": {
+    "bank": {
+      "home": {
+        "title": "Banks",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Bank",
+        "createOrEditLabel": "Crear o editar Bank",
+        "notFound": "Ningún Banks encontrado"
+      },
+      "created": "Un nuevo Bank ha sido creado con el identificador {{ param }}",
+      "updated": "Un Bank ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Bank ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Bank {{ id }}?"
+      },
+      "detail": {
+        "title": "Bank"
+      },
+      "id": "ID",
+      "name": "Name",
+      "product": "Product",
+      "user": "User"
+    }
+  }
+}

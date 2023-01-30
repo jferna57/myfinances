@@ -1,0 +1,28 @@
+{
+  "myfinancesApp": {
+    "entry": {
+      "home": {
+        "title": "Entries",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Entry",
+        "createOrEditLabel": "Crear o editar Entry",
+        "notFound": "Ningún Entries encontrado"
+      },
+      "created": "Un nuevo Entry ha sido creado con el identificador {{ param }}",
+      "updated": "Un Entry ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Entry ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Entry {{ id }}?"
+      },
+      "detail": {
+        "title": "Entry"
+      },
+      "id": "ID",
+      "amount": "Amount",
+      "entryDate": "Entry Date",
+      "user": "User",
+      "product": "Product",
+      "monthYear": "Month Year"
+    }
+  }
+}

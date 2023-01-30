@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20230129101047",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "month_year",
+  "fields": [
+    {
+      "fieldName": "month",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMax": "12",
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "year",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "2000"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MonthYear",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "entry",
+      "otherEntityRelationshipName": "monthYear",
+      "relationshipName": "entry",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="entry">
+      <h2 data-cy="entryDetailsHeading"><span jhiTranslate="myfinancesApp.entry.detail.title">Entry</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ entry.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myfinancesApp.entry.amount">Amount</span></dt>
+        <dd>
+          <span>{{ entry.amount }}</span>
+        </dd>
+        <dt><span jhiTranslate="myfinancesApp.entry.entryDate">Entry Date</span></dt>
+        <dd>
+          <span>{{ entry.entryDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="myfinancesApp.entry.user">User</span></dt>
+        <dd>
+          <span>{{ entry.user?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myfinancesApp.entry.product">Product</span></dt>
+        <dd>
+          <div *ngIf="entry.product">
+            <a [routerLink]="['/product', entry.product.id, 'view']">{{ entry.product.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="myfinancesApp.entry.monthYear">Month Year</span></dt>
+        <dd>
+          <div *ngIf="entry.monthYear">
+            <a [routerLink]="['/month-year', entry.monthYear.id, 'view']">{{ entry.monthYear.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/entry', entry.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

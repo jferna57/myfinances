@@ -1,0 +1,27 @@
+{
+  "myfinancesApp": {
+    "monthYear": {
+      "home": {
+        "title": "Month Years",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Month Year",
+        "createOrEditLabel": "Create or edit a Month Year",
+        "notFound": "No Month Years found"
+      },
+      "created": "A new Month Year is created with identifier {{ param }}",
+      "updated": "A Month Year is updated with identifier {{ param }}",
+      "deleted": "A Month Year is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Month Year {{ id }}?"
+      },
+      "detail": {
+        "title": "Month Year"
+      },
+      "id": "ID",
+      "month": "Month",
+      "year": "Year",
+      "entry": "Entry",
+      "user": "User"
+    }
+  }
+}

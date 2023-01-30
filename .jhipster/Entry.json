@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20230129101046",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "entry",
+  "fields": [
+    {
+      "fieldName": "amount",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "entryDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Entry",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "entry",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "monthYear",
+      "otherEntityRelationshipName": "entry",
+      "relationshipName": "monthYear",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

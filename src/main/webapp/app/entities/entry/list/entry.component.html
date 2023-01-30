@@ -1,0 +1,122 @@
+<div>
+  <h2 id="page-heading" data-cy="EntryHeading">
+    <span jhiTranslate="myfinancesApp.entry.home.title">Entries</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="myfinancesApp.entry.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-entry"
+        [routerLink]="['/entry/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="myfinancesApp.entry.home.createLabel"> Crear nuevo Entry </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="entries?.length === 0">
+    <span jhiTranslate="myfinancesApp.entry.home.notFound">Ningún Entries encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="entries && entries.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="amount">
+            <div class="d-flex">
+              <span jhiTranslate="myfinancesApp.entry.amount">Amount</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="entryDate">
+            <div class="d-flex">
+              <span jhiTranslate="myfinancesApp.entry.entryDate">Entry Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="user.id">
+            <div class="d-flex">
+              <span jhiTranslate="myfinancesApp.entry.user">User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="product.id">
+            <div class="d-flex">
+              <span jhiTranslate="myfinancesApp.entry.product">Product</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="monthYear.id">
+            <div class="d-flex">
+              <span jhiTranslate="myfinancesApp.entry.monthYear">Month Year</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let entry of entries; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/entry', entry.id, 'view']">{{ entry.id }}</a>
+          </td>
+          <td>{{ entry.amount | currency: 'EUR' }}</td>
+          <td>{{ entry.entryDate | formatMediumDatetime }}</td>
+          <td>
+            {{ entry.user?.id }}
+          </td>
+          <td>
+            <div *ngIf="entry.product">
+              <a [routerLink]="['/product', entry.product.id, 'view']">{{ entry.product.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="entry.monthYear">
+              <a [routerLink]="['/month-year', entry.monthYear.id, 'view']">{{ entry.monthYear.month }}-{{ entry.monthYear.year }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/entry', entry.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/entry', entry.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(entry)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
