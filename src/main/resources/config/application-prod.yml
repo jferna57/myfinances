@@ -33,7 +33,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: mongodb://172.25.4.32:27017
       database: myfinances
   mail:
     host: localhost
